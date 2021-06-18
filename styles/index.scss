@@ -1,0 +1,64 @@
+.page_header {
+  display: flex;
+  justify-content: center;
+  margin: 2rem;
+}
+
+.btn-group {
+  margin: 1rem 0;
+}
+
+.btn {
+  margin-right: 1rem;
+}
+
+.card {
+  margin: 1rem;
+}
+.card-header {
+  height: 170px;
+  background-color: red;
+}
+
+.title-time {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.recipe_time {
+  display: flex;
+  align-items: center;
+  .time {
+    font-weight: 700;
+    margin: 0 0.5rem;
+  }
+}
+
+.ingredients-directions {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 1rem 0;
+  .ingredient-list {
+    // width: 170px;
+    // overflow: hidden;
+    // text-overflow: ellipsis;
+    .list-group-item {
+      font-size: 12px;
+      white-space: nowrap;
+    }
+  }
+}
+
+.card-title {
+  font-weight: 400;
+}
+.card-text {
+  font-size: 12px;
+  margin-left: 2rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 6; /* number of lines to show */
+  -webkit-box-orient: vertical;
+}

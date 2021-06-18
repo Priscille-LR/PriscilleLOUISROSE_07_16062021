@@ -1,0 +1,24 @@
+{
+  "name": "starter-kit",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "parcel index.html",
+    "dev": "parcel index.html",
+    "prebuild": "npx rimraf build",
+    "build": "parcel build --public-url ./ index.html --experimental-scope-hoisting --out-dir build"
+  },
+  "devDependencies": {
+    "@types/bootstrap": "^5.0.16",
+    "parcel-bundler": "1.12.5",
+    "sass": "^1.34.1",
+    "typescript": "^4.3.2"
+  },
+  "author": "Priscille",
+  "license": "ISC",
+  "dependencies": {
+    "autoprefixer": "^10.2.6",
+    "bootstrap": "^5.0.1",
+    "postcss-cli": "^8.3.1"
+  }
+}
