@@ -1,4 +1,4 @@
-import { Recipe } from "../assets/Recipe";
+import { Recipe } from "../models/recipe";
 
 export const recipesList: Array<Recipe> = [
     {
@@ -49,15 +49,15 @@ export const recipesList: Array<Recipe> = [
                 "quantity" : 1
             },
             {
-                "ingredient" : "Tomate",
+                "ingredient" : "Tomates",
                 "quantity" : 2
             },
             {
-                "ingredient" : "Carotte",
+                "ingredient" : "Carottes",
                 "quantity" : 1
             },
             {
-                "ingredient" : "Citron Vert",
+                "ingredient" : "Citrons Verts",
                 "quantity" : 5
             },
             {
@@ -85,7 +85,7 @@ export const recipesList: Array<Recipe> = [
                 "unit" : "ml"
             },
             {
-                "ingredient": "Coulis de tomate",
+                "ingredient": "Coulis de tomates",
                 "quantity" : 25,
                 "unit" : "cl"
             },
@@ -102,7 +102,7 @@ export const recipesList: Array<Recipe> = [
             }
         ],
         "time": 80,
-        "description": "Découper le poulet en morceaux, les faire dorer dans une cocotte avec de l'huile d'olive. Salez et poivrez. Une fois doré, laisser cuire en ajoutant de l'eau. Au bout de 30 minutes, ajouter le coulis de tomate, le lait de coco ainsi que le poivron et l'oignon découpés en morceaux. Laisser cuisiner 30 minutes de plus. Servir avec du riz",
+        "description": "Découper le poulet en morceaux, les faire dorer dans une cocotte avec de l'huile d'olive. Salez et poivrez. Une fois doré, laisser cuire en ajoutant de l'eau. Au bout de 30 minutes, ajouter le coulis de tomates, le lait de coco ainsi que le poivron et l'oignon découpés en morceaux. Laisser cuisiner 30 minutes de plus. Servir avec du riz",
         "appliance": "Cocotte",
         "utensils": ["couteau"]
     },{
@@ -120,11 +120,11 @@ export const recipesList: Array<Recipe> = [
                 "quantity": 200,
                 "unit": "grammes"
             },{
-                "ingredient": "Tomate",
+                "ingredient": "Tomates",
                 "quantity": 2
             },
             {
-                "ingredient": "Oeuf dur",
+                "ingredient": "Oeufs durs",
                 "quantity": 2
             },
             {
@@ -139,7 +139,7 @@ export const recipesList: Array<Recipe> = [
             }
         ],
         "time": 50,
-        "description": "Faire cuire le riz. Une fois le riz cuit, le laisser refroidir. Couper les oeufs dur en quarts ou en lamelle au choix, coupez le tomates en dés, ajouter au riz les oeufs, les tomates, le poisson, le maïs et la vinaigrette. Ajouter au gout de chacun des corniches, olives etc..",
+        "description": "Faire cuire le riz. Une fois le riz cuit, le laisser refroidir. Couper les oeufs durs en quarts ou en lamelle au choix, coupez les tomates en dés, ajouter au riz les oeufs, les tomates, le poisson, le maïs et la vinaigrette. Ajouter au gout de chacun des corniches, olives etc..",
         "appliance": "Cuiseur de riz",
         "utensils": ["saladier", "passoire"]
     },
@@ -158,7 +158,7 @@ export const recipesList: Array<Recipe> = [
                "unit": "grammes"
            },
            {
-                "ingredient": "Tomate",
+                "ingredient": "Tomates",
                 "quantity": 2
            },
            {
@@ -192,12 +192,12 @@ export const recipesList: Array<Recipe> = [
                 "quantity": 1
             },
             {
-                "ingredient": "Pomme",
+                "ingredient": "Pommes",
                 "quantity": 3
             },
             {
-                "ingredient": "Oeuf",
-                "quantity": "2"
+                "ingredient": "Oeufs",
+                "quantity": 2
             },
             {
                 "ingredient":"Crème fraiche",
@@ -217,7 +217,7 @@ export const recipesList: Array<Recipe> = [
             }
         ],
         "time": 50,
-        "description": "Commencez par mélanger les oeufs le sucre et le sucre vanillé dans un saladier, découper les pommes en tranches, ajouter la crème fraiche aux oeufs. Une fois que tout est pret, étalez la tarte dans le moule. N'oubliez pas de piquer le fond avec une fourchette avant depositionner les pommes sur la tarte. Finallement verser la préparation à base d'oeufs et de crême fraiche. Laisser cuire au four pendant 30 minutes",
+        "description": "Commencez par mélanger les oeufs, le sucre et le sucre vanillé dans un saladier, découper les pommes en tranches, ajouter la crème fraiche aux oeufs. Une fois que tout est pret, étalez la tarte dans le moule. N'oubliez pas de piquer le fond avec une fourchette avant depositionner les pommes sur la tarte. Finallement verser la préparation à base d'oeufs et de crême fraiche. Laisser cuire au four pendant 30 minutes",
         "appliance": "Four",
         "utensils": ["moule à tarte", "saladier", "fourchette"]
     },{
@@ -241,11 +241,11 @@ export const recipesList: Array<Recipe> = [
             },
             {
                 "ingredient": "Beurre",
-                "quantity": "30",
+                "quantity": 30,
                 "unit": "grammes"
             },
             {
-                "ingredient": "Fraise",
+                "ingredient": "Fraises",
                 "quantity": 6
             }
         ],
@@ -260,7 +260,7 @@ export const recipesList: Array<Recipe> = [
         "ingredients":[
            {
                 "ingredient": "Noix",
-                "quantity": "180",
+                "quantity": 180,
                 "unit": "grammes"
            },
            {
@@ -274,12 +274,12 @@ export const recipesList: Array<Recipe> = [
                "unit": "grammes"
            },
            {
-                "ingredient": "Oeuf",
+                "ingredient": "Oeufs",
                 "quantity": 2
            },
            {
                "ingredient": "Sucre en Poudre",
-               "quantity": "110",
+               "quantity": 110,
                "unit": "grammes"
            },
            {
@@ -290,7 +290,7 @@ export const recipesList: Array<Recipe> = [
 
         ], 
         "time": 60,
-        "description": "Hachez les noix grossièrement. Faire fondre le chocolat avec le beurre. Mélanger les oeuf et le sucre et mélanger au chocolat. Ajouter la farine. Mélanger afin d'avoir quelque chose d'homogène puis incorporer les noix. Verser la préparation dans un moule de préférence rectangulaire. Cuire 2O à 25 minutes à 180°. Sortez du four et attendez quelques minutes pour démouler. Servir avec une boule de glace pour plus de gourmandise.",
+        "description": "Hachez les noix grossièrement. Faire fondre le chocolat avec le beurre. Mélanger les oeufs et le sucre et mélanger au chocolat. Ajouter la farine. Mélanger afin d'avoir quelque chose d'homogène puis incorporer les noix. Verser la préparation dans un moule de préférence rectangulaire. Cuire 2O à 25 minutes à 180°. Sortez du four et attendez quelques minutes pour démouler. Servir avec une boule de glace pour plus de gourmandise.",
         "appliance": "Four",
         "utensils": ["moule à gateaux", "casserolle"]
     },
@@ -312,7 +312,7 @@ export const recipesList: Array<Recipe> = [
                 "unit": "grammes"
             },
             {
-                "ingredient": "Vinaigre Balsamic"
+                "ingredient": "Vinaigre balsamique"
             },
             {
                 "ingredient": "Huile d'olive"
@@ -333,7 +333,7 @@ export const recipesList: Array<Recipe> = [
         "ingredients":[
             {
                 "ingredient": "Roblochon",
-                "quantity": "1"
+                "quantity": 1
             },
             {
                 "ingredient": "Pommes de terre",
@@ -362,7 +362,7 @@ export const recipesList: Array<Recipe> = [
         "utensils": ["plat à gratin", "couteau","Économe"]
     },{
         "id": 11,
-        "name": "Salade tomate, mozzarella et pommes",
+        "name": "Salade tomates, mozzarella et pommes",
         "servings": 4,
         "ingredients":[
             {
@@ -381,7 +381,7 @@ export const recipesList: Array<Recipe> = [
                 "unit": "tranches"
             }, 
             {
-                "ingredient": "Pommes",
+                "ingredient": "Pomme",
                 "quantity": 1
             },
             {
@@ -419,7 +419,7 @@ export const recipesList: Array<Recipe> = [
             },
             {
                 "ingredient": "Eau",
-                "quantity" : "0.5",
+                "quantity" : 0.5,
                 "unit" : "tasses"
             }
         ],
@@ -510,7 +510,7 @@ export const recipesList: Array<Recipe> = [
         "servings": 10,
         "ingredients": [
             {
-                "ingredient": "Oeuf",
+                "ingredient": "Oeufs",
                 "quantity": 3
             },
             {
@@ -549,7 +549,7 @@ export const recipesList: Array<Recipe> = [
         "servings": 2,
         "ingredients": [
             {
-                "ingredient": "Tomate",
+                "ingredient": "Tomates",
                 "quantity": 500,
                 "unit": "grammes"
             },
@@ -720,7 +720,7 @@ export const recipesList: Array<Recipe> = [
                 "quantity": 2
             },
             {
-                "ingredient": "Coulis de tomate",
+                "ingredient": "Coulis de tomates",
                 "quantity": 300,
                 "unit":"grammes"
             },
@@ -766,7 +766,7 @@ export const recipesList: Array<Recipe> = [
                 "unit": "grammes"
             },
             {
-                "ingredient": "Oeuf",
+                "ingredient": "Oeufs",
                 "quantity": 4
             },
             {
@@ -801,7 +801,7 @@ export const recipesList: Array<Recipe> = [
                 "unit": "grammes"
             },
             {
-                "ingredient": "Oeuf",
+                "ingredient": "Oeufs",
                 "quantity": 3
             },
             {
@@ -885,7 +885,7 @@ export const recipesList: Array<Recipe> = [
                 "unit":"grammes"
             },
             {
-                "ingredient": "Oeuf",
+                "ingredient": "Oeufs",
                 "quantity": 1
             }
         ],
@@ -900,7 +900,7 @@ export const recipesList: Array<Recipe> = [
         "servings": 2,
         "ingredients": [
             {
-                "ingredient": "Tomate",
+                "ingredient": "Tomates",
                 "quantity": 6
             },
             {
@@ -908,7 +908,7 @@ export const recipesList: Array<Recipe> = [
                 "quantity": 1
             },
             {
-                "ingredient": "Huile d'olives"
+                "ingredient": "Huile d'olive"
             },
             {
                 "ingredient": "Oignon",
@@ -917,7 +917,7 @@ export const recipesList: Array<Recipe> = [
             {
                 "ingredient": "Ail",
                 "quantity": 1,
-                "unit": "gousses"
+                "unit": "gousse"
             }
         ],
         "time": 25,
@@ -1322,7 +1322,7 @@ export const recipesList: Array<Recipe> = [
                 "unit": "cl"
             },
             {
-                "ingredient": "Oeuf",
+                "ingredient": "Oeufs",
                 "quantity": 3
             },
             {
@@ -1342,7 +1342,7 @@ export const recipesList: Array<Recipe> = [
         "servings": 40,
         "ingredients": [
             {
-                "ingredient": "Pomme",
+                "ingredient": "Pommes",
                 "quantity": 2
             },
             {
@@ -1402,7 +1402,7 @@ export const recipesList: Array<Recipe> = [
         "servings": 4,
         "ingredients": [
             {
-                "ingredient": "Oeuf",
+                "ingredient": "Oeufs",
                 "quantity": 3
             },
             {
@@ -1432,7 +1432,7 @@ export const recipesList: Array<Recipe> = [
                 "unit": "grammes"
             },
             {
-                "ingredient": "Oeuf",
+                "ingredient": "Oeufs",
                 "quantity": 3
             },
             {
@@ -1471,7 +1471,7 @@ export const recipesList: Array<Recipe> = [
                 "unit": "grammes"
             },
             {
-                "ingredient": "Oeuf",
+                "ingredient": "Oeufs",
                 "quantity": 3
             },
             {
@@ -1530,7 +1530,7 @@ export const recipesList: Array<Recipe> = [
                 "unit": "cl"
             },
             {
-                "ingredient": "Oeuf",
+                "ingredient": "Oeufs",
                 "quantity": 2
             },
             {
@@ -1570,7 +1570,7 @@ export const recipesList: Array<Recipe> = [
                 "unit": "sachets"
             },
             {
-                "ingredient": "Oeuf",
+                "ingredient": "Oeufs",
                 "quantity": 4
             },
             {
@@ -1699,7 +1699,7 @@ export const recipesList: Array<Recipe> = [
                 "unit":"grammes"
             },
             {
-                "ingredient": "Oeuf",
+                "ingredient": "Oeufs",
                 "quantity": 6
             },
             {
