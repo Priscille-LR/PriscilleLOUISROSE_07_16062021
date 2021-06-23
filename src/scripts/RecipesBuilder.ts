@@ -39,9 +39,9 @@ export class RecipesBuilder {
     const ingredients = recipeCard.querySelector('.ingredient-list');
     const ingredientsList = recipe.ingredients.map(ingredient => {
       if(ingredient.quantity) {
-        return `<li>${ingredient.ingredient} : ${ingredient.quantity ?? ''} ${ingredient.unit ?? ''}</li>`
+        return `<li class="ingredient">${ingredient.ingredient} : ${ingredient.quantity ?? ''} ${ingredient.unit ?? ''}</li>`
       } else {
-        return `<li>${ingredient.ingredient}</li>`
+        return `<li class="ingredient">${ingredient.ingredient}</li>`
       }
     })
     ingredients.innerHTML = ingredientsList.join(''); //reverses the elements in an array in place.

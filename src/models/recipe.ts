@@ -11,6 +11,6 @@ export interface Recipe {
 
 export interface Ingredient {
   ingredient: string;
-  quantity?: number; //error?
+  quantity?: number;
   unit?: string;
 }
