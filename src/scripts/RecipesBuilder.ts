@@ -1,7 +1,12 @@
 import { Recipe } from '../models/recipe';
+import { Utils } from './Utils';
 
-export class RecipesBuilder {
-  createRecipeCard(recipesList: Array<Recipe>) {
+export class RecipeCardsBuilder {
+  constructor(recipesList: Array<Recipe>) {
+    this.createRecipeCard(recipesList);
+  }  
+
+  private createRecipeCard(recipesList: Array<Recipe>) {
     recipesList.forEach((recipe) => {
       const recipeCard = document.createElement('div');
       recipeCard.className = 'recipe col-12 col-md-6 col-lg-4';
@@ -19,7 +24,7 @@ export class RecipesBuilder {
                   </div>
                 </div>
                 <div class="ingredients-directions row">
-                  <ul class="ingredient-list list-group list-unstyled bg-light">
+                  <ul class="recipe-ingredient-list list-group list-unstyled bg-light">
                   </ul>
                   <p class="card-text">
                   ${recipe.description}
@@ -35,16 +40,20 @@ export class RecipesBuilder {
     });
   }
 
-  getIngredients(recipe: Recipe, recipeCard: HTMLDivElement) {
-    const ingredients = recipeCard.querySelector('.ingredient-list');
+  private getIngredients(recipe: Recipe, recipeCard: HTMLDivElement) {
+    const ingredients = recipeCard.querySelector('.recipe-ingredient-list');
     const ingredientsList = recipe.ingredients.map(ingredient => {
       if(ingredient.quantity) {
-        return `<li class="ingredient">${ingredient.ingredient} : ${ingredient.quantity ?? ''} ${ingredient.unit ?? ''}</li>`
+        return `<li class="recipe-ingredient">${ingredient.ingredient} : ${ingredient.quantity ?? ''} ${ingredient.unit ?? ''}</li>`
       } else {
-        return `<li class="ingredient">${ingredient.ingredient}</li>`
+        return `<li class="recipe-ingredient">${ingredient.ingredient}</li>`
       }
     })
     ingredients.innerHTML = ingredientsList.join(''); //reverses the elements in an array in place.
+  }
 
+  update(recipesList: Array<Recipe>) {
+    Utils.removeChildOf('.recipes', 'recipe'); //static 
+    this.createRecipeCard(recipesList);
   }
 }

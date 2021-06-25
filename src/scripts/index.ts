@@ -1,13 +1,16 @@
+import { recipesList } from './recipesList';
+import { RecipeCardsBuilder } from './RecipesBuilder';
+import { DropdownsBuilder } from './DropdownsBuilder';
+import { DropdownsHandler } from './DropdownsHandler';
+import {SearchBarAlgorithm} from './SearchAlgorithms/SearchBarAlgorithm'
 
-import { recipesList } from "./recipesList";
-import { RecipesBuilder } from "./RecipesBuilder";
-import { Dropdown } from "./Dropdown";
-import { Recipe } from '../models/recipe';
+const recipeBuilder = new RecipeCardsBuilder(recipesList);
+const dropdownsBuilder = new DropdownsBuilder(recipesList);
+const dropdownsHandler = new DropdownsHandler;
+const searchBarAlgorithm : SearchBarAlgorithm = null;
+
+const searchBarInput = document.querySelector('.search-bar');
+searchBarInput.addEventListener('input', (e) => searchBarAlgorithm.search(e));
 
 
-const recipeCard = new RecipesBuilder
-const dropdownIngredients = new Dropdown
 
-recipeCard.createRecipeCard(recipesList);
-
-dropdownIngredients.createDropdowns(recipesList)
