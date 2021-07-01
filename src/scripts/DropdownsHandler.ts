@@ -1,16 +1,17 @@
 import { DropdownsBuilder } from './DropdownsBuilder';
 import { ingredientsMap, appliancesMap, utensilsMap } from './DropdownsBuilder';
+import { recipesList } from './recipesList';
+import { globalRecipesList } from '.';
 import { RecipeCardsBuilder } from './RecipesBuilder';
 import { Recipe } from '../models/recipe';
-import { globalRecipesList } from '.';
-import { Utils } from './Utils';
-import { recipesList } from './recipesList';
 import { ISearch } from "./SearchAlgorithms/Search";
+import { Utils } from './Utils';
 import { Alerts } from '../scripts/Alerts';
 
 export let selectedTags: Array<string> = [];
 
 export class DropdownsHandler {
+  selectedRecipes: Array<Recipe> = [];
   selectedTagsMap = new Map();
   typeArray: Array<string> = ['ingredient', 'appliance', 'utensil'];
   
@@ -124,6 +125,7 @@ export class DropdownsHandler {
   }
 
   updateSelectedRecipes() {
+    this.selectedRecipes = [];
 
     let selectedRecipesIds = selectedTags.map((tag) => {
       let storedIds = [];
@@ -148,7 +150,7 @@ export class DropdownsHandler {
     }
 
     if (selectedRecipesIds.length != 0) {
-
+  
       selectedRecipesIds = selectedRecipesIds
         .reduce((a: Array<number>, b: Array<number>) =>
           a.filter((c: number) => b.includes(c)))
@@ -163,7 +165,6 @@ export class DropdownsHandler {
         });
         return storedRecipes;
       });
-
       Utils.clearArray(globalRecipesList);
       globalRecipesList.push(...Array.from(new Set(selectedRecipesList.flat())));
     }

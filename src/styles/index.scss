@@ -1,4 +1,4 @@
-@import 'custom';
+@import "./custom.scss";
 
 .page_header {
   display: flex;
@@ -60,6 +60,24 @@
   width: 45%;
   transition: linear .1s;
 }
+
+.search-bar {
+  &::placeholder {
+    color: #C7BEBE;
+  }
+}
+
+.alerts {
+  padding: 1rem 0;
+  .alert {
+    display: none;
+  }
+  .alert.displayed {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
 
 .list-wrapper {
   display: none;
