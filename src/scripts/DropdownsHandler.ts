@@ -1,7 +1,6 @@
 import { DropdownsBuilder } from './DropdownsBuilder';
 import { ingredientsMap, appliancesMap, utensilsMap } from './DropdownsBuilder';
 import { RecipeCardsBuilder } from './RecipesBuilder';
-import { Recipe } from '../models/recipe';
 import { globalRecipesList } from '.';
 import { Utils } from './Utils';
 import { recipesList } from './recipesList';
