@@ -14,8 +14,8 @@ export class DropdownsBuilder {
     ingredientsMap.clear();
     appliancesMap.clear();
     utensilsMap.clear();
-    const dropdownAppliances = document.querySelector('.appliances');
-    const dropdownUtensils = document.querySelector('.utensils');
+    const dropdownAppliances = document.querySelector('.appliances-list');
+    const dropdownUtensils = document.querySelector('.utensils-list');
     //const dropdownIngredients = document.getElementById('ingredients-list');
     const dropdownIngredients = document.querySelector('.ingredients-list')
      
@@ -25,13 +25,13 @@ export class DropdownsBuilder {
         this.updateMap(ingredient.ingredient, recipe.id, ingredientsMap);
       });
     });
-    this.createLi(dropdownIngredients, ingredientsMap, "ingredient");
+    this.createLi(dropdownIngredients, ingredientsMap, "list-item ingredient");
 
 
     recipesList.forEach((recipe) => {
       this.updateMap(recipe.appliance, recipe.id, appliancesMap);
     })
-    this.createLi(dropdownAppliances, appliancesMap, "appliance");
+    this.createLi(dropdownAppliances, appliancesMap, "list-item appliance");
 
 
     recipesList.forEach((recipe) => {
@@ -40,7 +40,7 @@ export class DropdownsBuilder {
         this.updateMap(utensil, id, utensilsMap);
       });
     });
-    this.createLi(dropdownUtensils, utensilsMap, "utensil");
+    this.createLi(dropdownUtensils, utensilsMap, "list-item utensil");
   }
 
 
@@ -85,6 +85,8 @@ export class DropdownsBuilder {
 
   update(recipesList: Array<Recipe>) {
     this.removeChildOf('.ingredients-list', 'ingredient');
+    // this.removeChildOf('.appliances-list', 'appliance');
+    // this.removeChildOf('.utensils-list', 'utensil');
     this.createDropdowns(recipesList);
   }
 

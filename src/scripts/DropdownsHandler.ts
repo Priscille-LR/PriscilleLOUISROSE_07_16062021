@@ -2,80 +2,100 @@ import { DropdownsBuilder } from './DropdownsBuilder';
 import { ingredientsMap, appliancesMap, utensilsMap } from './DropdownsBuilder';
 
 export class DropdownsHandler {
-
-  constructor() {
-    this.openDropdown();
-    this.closeDropdown();
-    this.onUserInput();
-    this.displayTag();
+  constructor(type: string) {
+    let dropdown: string = `.button-${type}`;
+    let list: string = `.${type}-list-wrapper`;
+    let input: string = `input-${type}`;
+    let close: string = `.close-dropdown-${type}`;
+    let item: string = `${type}`;
+    let tagItem: string = `${type}-tag rounded`;
+    this.openDropdown(dropdown, list, input);
+    this.closeDropdown(close, list);
+    this.onUserInput(input, item);
+    this.displayTag(item, tagItem);
   }
 
-  openDropdown() {
-    const dropdownIngredientsButton = document.querySelector('.button-ingredients');
-    const ingredientsList = document.querySelector('.ingredients-list-wrapper') as HTMLElement;
-    const inputIngredients = document.getElementById('input-ingredients');
+  openDropdown(dropdown: string, list: string, input: string) {
+    const dropdownButton = document.querySelector(dropdown);
+    const dropdownList = document.querySelector(list) as HTMLElement;
+    const dropdownInput = document.getElementById(input);
 
-    dropdownIngredientsButton.addEventListener('click', () => {
-      ingredientsList.style.display = 'block';
-      inputIngredients.focus();
+    dropdownButton.addEventListener('click', () => {
+      dropdownList.style.display = 'block';
+      dropdownInput.focus();
     });
   }
 
-  closeDropdown() {
-    const toggleButton = document.querySelector('.close-dropdown-ing');
-    const ingredientsList = document.querySelector('.ingredients-list-wrapper') as HTMLElement;
+  closeDropdown(close: string, list: string) {
+    const toggleButton = document.querySelector(close);
+    const dropdownList = document.querySelector(list) as HTMLElement;
 
     toggleButton.addEventListener('click', () => {
-      ingredientsList.style.display = 'none';
+      dropdownList.style.display = 'none';
     });
   }
 
-  onUserInput() {
-    const inputIngredients = document.getElementById('input-ingredients');
-    inputIngredients.addEventListener('input', (e) => this.updateDropdown(e));
+  onUserInput(input: string, item: string) {
+    const dropdownInput = document.getElementById(input);
+    dropdownInput.addEventListener('input', (e) =>
+      this.updateDropdown(e, item)
+    );
   }
 
-  updateDropdown(e: Event) {
+  updateDropdown(e: Event, item: string) {
     const userInput = (e.target as HTMLTextAreaElement).value.toLowerCase();
-    const ingredients = document.getElementsByClassName('ingredient');
-    const ingredientsArray = Array.from(ingredients) as Array<HTMLElement>;
+    const dropdownItem = document.getElementsByClassName(item);
+    const dropdownArray = Array.from(dropdownItem) as Array<HTMLElement>;
 
-    ingredientsArray.forEach((ingredient) => {
+    dropdownArray.forEach((dropdownItem) => {
       if (
         userInput.length >= 3 &&
-        ingredient.innerHTML.toLowerCase().includes(userInput)
+        dropdownItem.innerHTML.toLowerCase().includes(userInput)
       ) {
-        ingredient.style.display = 'block';
+        dropdownItem.style.display = 'block';
       } else {
-        ingredient.style.display = 'none';
+        dropdownItem.style.display = 'none';
       }
     });
   }
 
-  displayTag() {
-    const ingredients = document.getElementsByClassName('ingredient');
-    const ingredientsArray = Array.from(ingredients);
+  displayTag(item: string, tagItem:string) {
+    const dropdownItem = document.getElementsByClassName(item);
+    const dropdownArray = Array.from(dropdownItem);
     //let selectedTag = []
 
-    ingredientsArray.forEach((ingredient) => {
-      ingredient.addEventListener('click', () => {
-        this.createTag(ingredient);
+    dropdownArray.forEach((element) => {
+      element.addEventListener('click', () => {
+        this.createTag(element, tagItem);
         //selectedTag.push(ingredient);
       });
     });
   }
 
-    private createTag(ingredient: Element) {
-        const tags = document.querySelector('.tags');
-        const ingredientTag = document.createElement('span');
-        ingredientTag.className = 'ingredient-tag rounded';
-        ingredientTag.innerHTML = `${ingredient.innerHTML} <i class="close-tag far fa-times-circle"></i>`;
-        const closeTag = ingredientTag.querySelector('.close-tag');
-        
-        closeTag.addEventListener('click', () => {
-            ingredientTag.remove();
-        });
+  private createTag(item: Element, tagItem: string) {
+    const tags = document.querySelector('.tags');
+    const tag = document.createElement('span');
+    tag.className = `tag ${tagItem}`;
+    tag.innerHTML = `${item.innerHTML} <i class="close-tag far fa-times-circle"></i>`;
+    const closeTag = tag.querySelector('.close-tag');
 
-        tags.appendChild(ingredientTag);
-    }
+    closeTag.addEventListener('click', () => {
+      tag.remove();
+    });
+
+    tags.appendChild(tag);
+  }
+  //   private createTag(ingredient: Element) {
+  //     const tags = document.querySelector('.tags');
+  //     const ingredientTag = document.createElement('span');
+  //     ingredientTag.className = 'ingredient-tag rounded';
+  //     ingredientTag.innerHTML = `${ingredient.innerHTML} <i class="close-tag far fa-times-circle"></i>`;
+  //     const closeTag = ingredientTag.querySelector('.close-tag');
+
+  //     closeTag.addEventListener('click', () => {
+  //         ingredientTag.remove();
+  //     });
+
+  //     tags.appendChild(ingredientTag);
+  // }
 }

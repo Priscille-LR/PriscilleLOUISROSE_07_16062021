@@ -60,7 +60,7 @@
 
       <div class="container">
         <div class="row">
-          <div class="col-12 col-lg-3">
+          <div class="col-12">
             <div class="tags"></div>
           </div>
         </div>
@@ -82,72 +82,71 @@
               <datalist id="ingredients-list"> </datalist> -->
               <button
                 type="button"
-                class="button-ingredients btn btn-primary rounded"
+                class="button-ingredient btn btn-primary rounded"
               >
                 Ingrédients
-                <i class="dropdown-ing-toggle fas fa-chevron-down"></i>
+                <i class="dropdown-ingredient-toggle fas fa-chevron-down"></i>
               </button>
-              <div class="ingredients-list-wrapper rounded">
-                <label for="input-ingredients"></label>
+              <div class="list-wrapper ingredient-list-wrapper rounded">
+                <label for="input-ingredient"></label>
                 <input
                   type="search"
-                  id="input-ingredients"
+                  class="input-dropdown"
+                  id="input-ingredient"
                   placeholder="Rechercher un ingrédient"
                 />
-                <button type="button" class="close-dropdown-ing">
+                <button type="button" class="close-dropdown-tag close-dropdown-ingredient">
                   <i class="fas fa-chevron-up"></i>
                 </button>
-                <ul class="ingredients-list"></ul>
+                <ul class="dropdown-list ingredients-list"></ul>
               </div>
 
-              <!-- <button
-                type="button"
-                class="btn btn-primary rounded dropdown-toggle"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Ingrédients
-              </button>
-              <ul class="dropdown-menu ingredients"></ul> -->
-
               <button
                 type="button"
-                class="btn btn-success rounded dropdown-toggle"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
+                class="button-appliance btn btn-success rounded"
               >
-                Appareils
+              Appareils
+                <i class="dropdown-appliance-toggle fas fa-chevron-down"></i>
               </button>
-              <ul class="dropdown-menu appliances"></ul>
+              <div class="list-wrapper appliance-list-wrapper rounded">
+                <label for="input-appliance"></label>
+                <input
+                  type="search"
+                  class="input-dropdown"
+                  id="input-appliance"
+                  placeholder="Rechercher un appareil"
+                />
+                <button type="button" class="close-dropdown-tag close-dropdown-appliance">
+                  <i class="fas fa-chevron-up"></i>
+                </button>
+                <ul class="dropdown-list appliances-list"></ul>
+              </div>
 
               <button
-                type="button"
-                class="btn btn-danger rounded dropdown-toggle"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Ustensiles
+              type="button"
+              class="button-utensil btn btn-danger rounded"
+            >
+            Ustensiles
+              <i class="dropdown-utensil-toggle fas fa-chevron-down"></i>
+            </button>
+            <div class="list-wrapper utensil-list-wrapper rounded">
+              <label for="input-utensil"></label>
+              <input
+                type="search"
+                class="input-dropdown"
+                id="input-utensil"
+                placeholder="Rechercher un ustensile"
+              />
+              <button type="button" class="close-dropdown-tag close-dropdown-utensil">
+                <i class="fas fa-chevron-up"></i>
               </button>
-              <ul class="dropdown-menu utensils"></ul>
+              <ul class="dropdown-list utensils-list"></ul>
+            </div>
+
             </div>
           </div>
         </div>
       </div>
-
-      <!-- <div class="filters">
-        <div class="filters_item ingredients">
-          <p>Ingredients</p>
-          <i class="fas fa-chevron-down"></i>
-        </div>
-        <div class="filters_item__appliances">
-          <p>Appareils</p>
-          <i class="fas fa-chevron-down"></i>
-        </div>
-        <div class="filters_item__utensils">
-          <p>Ustensiles</p>
-          <i class="fas fa-chevron-down"></i>
-        </div>
-      </div> -->
 
       <div class="container">
         <div class="recipes row"></div>
