@@ -1,14 +1,21 @@
 import { DropdownsBuilder } from './DropdownsBuilder';
 import { ingredientsMap, appliancesMap, utensilsMap } from './DropdownsBuilder';
+import { recipesList } from './recipesList';
+import { RecipeCardsBuilder } from './RecipesBuilder';
 
 export class DropdownsHandler {
-  constructor(type: string) {
+  selectedTags = [];
+  selectedRecipes = [];
+  recipesBuilder: RecipeCardsBuilder;
+
+  constructor(type: string, recipesBuilder: RecipeCardsBuilder) {
     let dropdown: string = `.button-${type}`;
     let list: string = `.${type}-list-wrapper`;
     let input: string = `input-${type}`;
     let close: string = `.close-dropdown-${type}`;
     let item: string = `${type}`;
     let tagItem: string = `${type}-tag rounded`;
+    this.recipesBuilder = recipesBuilder;
     this.openDropdown(dropdown, list, input);
     this.closeDropdown(close, list);
     this.onUserInput(input, item);
@@ -59,15 +66,29 @@ export class DropdownsHandler {
     });
   }
 
-  displayTag(item: string, tagItem:string) {
+  displayTag(item: string, tagItem: string) {
     const dropdownItem = document.getElementsByClassName(item);
     const dropdownArray = Array.from(dropdownItem);
-    //let selectedTag = []
 
     dropdownArray.forEach((element) => {
       element.addEventListener('click', () => {
         this.createTag(element, tagItem);
-        //selectedTag.push(ingredient);
+        this.selectedTags.push(element);
+
+        [ingredientsMap, appliancesMap, utensilsMap].forEach((map) => {
+          let ids: Number[] | undefined = map.get(element.innerHTML);
+          recipesList.forEach((recipe) => {
+            ids?.forEach((id) => {
+              if (recipe.id === id) {
+                this.selectedRecipes.push(recipe);
+              }
+            });
+          });
+        });
+
+        this.recipesBuilder.update(this.selectedRecipes);
+
+        console.log(this.selectedRecipes);
       });
     });
   }
@@ -81,21 +102,11 @@ export class DropdownsHandler {
 
     closeTag.addEventListener('click', () => {
       tag.remove();
+      this.selectedTags = this.selectedTags.filter((element) => {
+        return element != item;
+      });
+      console.log(this.selectedTags);
     });
-
     tags.appendChild(tag);
   }
-  //   private createTag(ingredient: Element) {
-  //     const tags = document.querySelector('.tags');
-  //     const ingredientTag = document.createElement('span');
-  //     ingredientTag.className = 'ingredient-tag rounded';
-  //     ingredientTag.innerHTML = `${ingredient.innerHTML} <i class="close-tag far fa-times-circle"></i>`;
-  //     const closeTag = ingredientTag.querySelector('.close-tag');
-
-  //     closeTag.addEventListener('click', () => {
-  //         ingredientTag.remove();
-  //     });
-
-  //     tags.appendChild(ingredientTag);
-  // }
 }
