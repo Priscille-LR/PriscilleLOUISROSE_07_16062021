@@ -85,8 +85,8 @@ export class DropdownsBuilder {
 
   update(recipesList: Array<Recipe>) {
     this.removeChildOf('.ingredients-list', 'ingredient');
-    // this.removeChildOf('.appliances-list', 'appliance');
-    // this.removeChildOf('.utensils-list', 'utensil');
+    this.removeChildOf('.appliances-list', 'appliance');
+    this.removeChildOf('.utensils-list', 'utensil');
     this.createDropdowns(recipesList);
   }
 
