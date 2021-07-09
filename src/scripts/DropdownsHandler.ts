@@ -73,40 +73,56 @@ export class DropdownsHandler {
     dropdownArray.forEach((element) => {
       element.addEventListener('click', () => {
         this.createTag(element, tagItem);
-        this.selectedTags.push(element);
+        this.selectedTags.push(element.innerHTML);
+        element.classList.add('selected');
 
-        [ingredientsMap, appliancesMap, utensilsMap].forEach((map) => {
-          let ids: Number[] | undefined = map.get(element.innerHTML);
-          recipesList.forEach((recipe) => {
-            ids?.forEach((id) => {
-              if (recipe.id === id) {
-                this.selectedRecipes.push(recipe);
-              }
-            });
-          });
-        });
+        this.updateSelectedRecipes();
 
         this.recipesBuilder.update(this.selectedRecipes);
-
-        console.log(this.selectedRecipes);
       });
     });
   }
 
-  private createTag(item: Element, tagItem: string) {
+  private updateSelectedRecipes() {
+    this.selectedRecipes = [];
+    [ingredientsMap, appliancesMap, utensilsMap].forEach((map) => {
+      this.selectedTags.forEach((tag) => {
+        let ids: Number[] | undefined = map.get(tag); //can return undef
+        recipesList.forEach((recipe) => {
+          ids?.forEach((id) => {
+            if (recipe.id === id) {
+              this.selectedRecipes.push(recipe);
+            }
+          });
+        });
+      });
+    });
+
+    this.selectedRecipes = Array.from(new Set(this.selectedRecipes));
+  }
+
+  private createTag(element: Element, tagItem: string) {
     const tags = document.querySelector('.tags');
     const tag = document.createElement('span');
     tag.className = `tag ${tagItem}`;
-    tag.innerHTML = `${item.innerHTML} <i class="close-tag far fa-times-circle"></i>`;
+    tag.innerHTML = `${element.innerHTML} <i class="close-tag far fa-times-circle"></i>`;
     const closeTag = tag.querySelector('.close-tag');
 
     closeTag.addEventListener('click', () => {
       tag.remove();
-      this.selectedTags = this.selectedTags.filter((element) => {
-        return element != item;
+      element.classList.remove('selected');
+
+      this.selectedTags = this.selectedTags.filter((tag) => {
+        return tag != element.innerHTML;
       });
-      console.log(this.selectedTags);
+
+      this.updateSelectedRecipes();
+
+      this.recipesBuilder.update(
+        this.selectedRecipes.length == 0 ? recipesList : this.selectedRecipes
+      );
     });
+
     tags.appendChild(tag);
   }
 }

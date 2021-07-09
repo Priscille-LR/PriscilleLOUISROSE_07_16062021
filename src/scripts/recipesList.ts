@@ -53,7 +53,7 @@ export const recipesList: Array<Recipe> = [
                 "quantity" : 2
             },
             {
-                "ingredient" : "Carottes",
+                "ingredient" : "Carotte",
                 "quantity" : 1
             },
             {
@@ -1056,7 +1056,7 @@ export const recipesList: Array<Recipe> = [
         "servings": 4,
         "ingredients": [
             {
-                "ingredient": "Carotte",
+                "ingredient": "Carottes",
                 "quantity": 2
             },
             {
@@ -1194,7 +1194,7 @@ export const recipesList: Array<Recipe> = [
         "servings": 2,
         "ingredients": [
             {
-                "ingredient": "Carotte",
+                "ingredient": "Carottes",
                 "quantity": 6
             },
             {
