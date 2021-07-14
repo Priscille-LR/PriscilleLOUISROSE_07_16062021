@@ -40,6 +40,7 @@ export class DropdownsBuilder {
       });
     });
     this.createLi(dropdownUtensils, utensilsMap, "list-item utensil");
+    this.sort()
   }
 
 
@@ -68,6 +69,13 @@ export class DropdownsBuilder {
     filterList.forEach((li) => {
       HTMLElement.innerHTML = HTMLElement.innerHTML + li;
     });
+  }
+  
+  sort() {
+    const liItems = Array.from(document.getElementsByClassName('ingredient'))
+    console.log(liItems)
+    const sortedIng = liItems.sort((a, b) => a.textContent.localeCompare(b.textContent, 'fr'));
+    console.log(sortedIng)
   }
 
   update(recipesList: Array<Recipe>) {
