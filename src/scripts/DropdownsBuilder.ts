@@ -16,7 +16,6 @@ export class DropdownsBuilder {
     utensilsMap.clear();
     const dropdownAppliances = document.querySelector('.appliances-list');
     const dropdownUtensils = document.querySelector('.utensils-list');
-    //const dropdownIngredients = document.getElementById('ingredients-list');
     const dropdownIngredients = document.querySelector('.ingredients-list')
      
     recipesList.forEach((recipe) => {
@@ -70,18 +69,6 @@ export class DropdownsBuilder {
       HTMLElement.innerHTML = HTMLElement.innerHTML + li;
     });
   }
-
-  // private createOptions(HTMLElement: Element, map: Map<string, Array<number>>, className: string) {
-  //   let filterKeys = Array.from(map.keys());
-
-  //   let filterList = filterKeys.map((element) => {
-  //     return  `<option class="${className}">${element}</option>`;
-  //   });
-
-  //   filterList.forEach((li) => {
-  //     HTMLElement.innerHTML = HTMLElement.innerHTML + li;
-  //   });
-  // }
 
   update(recipesList: Array<Recipe>) {
     this.removeChildOf('.ingredients-list', 'ingredient');

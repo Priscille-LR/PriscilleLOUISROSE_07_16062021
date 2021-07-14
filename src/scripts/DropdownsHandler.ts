@@ -2,10 +2,12 @@ import { DropdownsBuilder } from './DropdownsBuilder';
 import { ingredientsMap, appliancesMap, utensilsMap } from './DropdownsBuilder';
 import { recipesList } from './recipesList';
 import { RecipeCardsBuilder } from './RecipesBuilder';
+import { has } from 'core-js/core/dict';
+import { Recipe } from '../models/recipe';
 
 export class DropdownsHandler {
   selectedTags = [];
-  selectedRecipes = [];
+  selectedRecipes : Array<Recipe> = [];
   recipesBuilder: RecipeCardsBuilder;
 
   constructor(type: string, recipesBuilder: RecipeCardsBuilder) {
@@ -33,8 +35,6 @@ export class DropdownsHandler {
       backdrop.classList.add('expanded');
       dropdownInput.focus();
     });
-
-  
   }
 
   closeDropdown(close: string, list: string) {
@@ -49,7 +49,10 @@ export class DropdownsHandler {
     this.closeDropdownOnBackdropClick(backdrop, dropdownList);
   }
 
-  private closeDropdownOnBackdropClick(backdrop: HTMLElement, dropdownList: HTMLElement) {
+  private closeDropdownOnBackdropClick(
+    backdrop: HTMLElement,
+    dropdownList: HTMLElement
+  ) {
     backdrop.addEventListener('click', (e) => {
       dropdownList.classList.remove('expanded');
       backdrop.classList.remove('expanded');
@@ -89,30 +92,72 @@ export class DropdownsHandler {
         this.createTag(element, tagItem);
         this.selectedTags.push(element.innerHTML);
         element.classList.add('selected');
-
         this.updateSelectedRecipes();
-
         this.recipesBuilder.update(this.selectedRecipes);
       });
     });
   }
 
+  // private updateSelectedRecipes() {
+  //   this.selectedRecipes = [];
+  //   [ingredientsMap, appliancesMap, utensilsMap].forEach((map) => {
+  //     this.selectedTags.forEach((tag) => {
+  //       let ids: Number[] | undefined = map.get(tag); //can return undef
+  //       recipesList.forEach((recipe) => {
+  //         ids?.forEach((id) => {
+  //           if (recipe.id === id) {
+  //             this.selectedRecipes.push(recipe);
+  //           }
+  //         });
+  //       });
+  //     });
+  //   });
+  //   this.selectedRecipes = Array.from(new Set(this.selectedRecipes));
+  // }
+
   private updateSelectedRecipes() {
     this.selectedRecipes = [];
-    [ingredientsMap, appliancesMap, utensilsMap].forEach((map) => {
-      this.selectedTags.forEach((tag) => {
+    
+    console.log("tableau des tags selectionnés")
+    console.log(this.selectedTags)
+    let selectedRecipesIds = this.selectedTags.map((tag) => {
+      let storedIds = [];
+      [ingredientsMap, appliancesMap, utensilsMap].forEach((map) => {
         let ids: Number[] | undefined = map.get(tag); //can return undef
-        recipesList.forEach((recipe) => {
-          ids?.forEach((id) => {
-            if (recipe.id === id) {
-              this.selectedRecipes.push(recipe);
-            }
-          });
-        });
+        if (map.has(tag)) {
+          storedIds.push(ids);
+        }
       });
+      return storedIds.flat();
     });
+    console.log("tableau des tags selectionnés après le map")
+    console.log(selectedRecipesIds)
 
-    this.selectedRecipes = Array.from(new Set(this.selectedRecipes));
+
+    selectedRecipesIds =  selectedRecipesIds.reduce((a: Array<number>, b:Array<number>) => {
+      console.log(a)
+      console.log(b)
+      return a.filter((c:number) => {
+        console.log("comparaison c = " + c + " included ? " + b.includes(c));
+        return b.includes(c)
+      })
+    }).flat()
+    console.log("tableau des tags selectionnés après le reduce")
+    console.log(selectedRecipesIds)
+    
+    let selectedRecipesList = selectedRecipesIds.flat().map((id: number) => {
+      let storedRecipes = [];
+      recipesList.forEach((recipe) => {
+        if (id === recipe.id) {
+          storedRecipes.push(recipe);
+        }
+      });
+      console.log(storedRecipes);
+      console.log(selectedRecipesList);
+      return storedRecipes;
+    });
+    this.selectedRecipes = Array.from(new Set(selectedRecipesList.flat()));
+    console.log(this.selectedRecipes);
   }
 
   private createTag(element: Element, tagItem: string) {

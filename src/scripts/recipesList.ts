@@ -57,7 +57,7 @@ export const recipesList: Array<Recipe> = [
                 "quantity" : 1
             },
             {
-                "ingredient" : "Citrons Verts",
+                "ingredient" : "Citron Vert",
                 "quantity" : 5
             },
             {
@@ -124,7 +124,7 @@ export const recipesList: Array<Recipe> = [
                 "quantity": 2
             },
             {
-                "ingredient": "Oeufs durs",
+                "ingredient": "Oeuf dur",
                 "quantity": 2
             },
             {
@@ -192,11 +192,11 @@ export const recipesList: Array<Recipe> = [
                 "quantity": 1
             },
             {
-                "ingredient": "Pommes",
+                "ingredient": "Pomme",
                 "quantity": 3
             },
             {
-                "ingredient": "Oeufs",
+                "ingredient": "Oeuf",
                 "quantity": 2
             },
             {
@@ -274,7 +274,7 @@ export const recipesList: Array<Recipe> = [
                "unit": "grammes"
            },
            {
-                "ingredient": "Oeufs",
+                "ingredient": "Oeuf",
                 "quantity": 2
            },
            {
@@ -336,7 +336,7 @@ export const recipesList: Array<Recipe> = [
                 "quantity": 1
             },
             {
-                "ingredient": "Pommes de terre",
+                "ingredient": "Pomme de terre",
                 "quantity": 4.5,
                 "unit": "kg"
             },
@@ -409,7 +409,7 @@ export const recipesList: Array<Recipe> = [
                 "unit": "grammes"
             },
             {
-                "ingredient": "Pommes",
+                "ingredient": "Pomme",
                 "quantity": 8
             },
             {
@@ -439,7 +439,7 @@ export const recipesList: Array<Recipe> = [
                 "unit": "grammes"
             },
             {
-                "ingredient": "Pommes de terre",
+                "ingredient": "Pomme de terre",
                 "quantity": 200,
                 "unit": "grammes"
             },
@@ -510,7 +510,7 @@ export const recipesList: Array<Recipe> = [
         "servings": 10,
         "ingredients": [
             {
-                "ingredient": "Oeufs",
+                "ingredient": "Oeuf",
                 "quantity": 3
             },
             {
@@ -585,7 +585,7 @@ export const recipesList: Array<Recipe> = [
         "servings": 6,
         "ingredients": [
             {
-                "ingredient": "Fraise",
+                "ingredient": "Fraises",
                 "quantity": 500,
                 "unit": "grammes"
             },
@@ -766,7 +766,7 @@ export const recipesList: Array<Recipe> = [
                 "unit": "grammes"
             },
             {
-                "ingredient": "Oeufs",
+                "ingredient": "Oeuf",
                 "quantity": 4
             },
             {
@@ -801,7 +801,7 @@ export const recipesList: Array<Recipe> = [
                 "unit": "grammes"
             },
             {
-                "ingredient": "Oeufs",
+                "ingredient": "Oeuf",
                 "quantity": 3
             },
             {
@@ -885,7 +885,7 @@ export const recipesList: Array<Recipe> = [
                 "unit":"grammes"
             },
             {
-                "ingredient": "Oeufs",
+                "ingredient": "Oeuf",
                 "quantity": 1
             }
         ],
@@ -904,7 +904,7 @@ export const recipesList: Array<Recipe> = [
                 "quantity": 6
             },
             {
-                "ingredient": "Pommes de terre",
+                "ingredient": "Pomme de terre",
                 "quantity": 1
             },
             {
@@ -969,7 +969,7 @@ export const recipesList: Array<Recipe> = [
                 "quantity": 3
             },
             {
-                "ingredient": "Pommes de terre",
+                "ingredient": "Pomme de terre",
                 "quantity": 400,
                 "unit": "grammes"
             },
@@ -1056,11 +1056,11 @@ export const recipesList: Array<Recipe> = [
         "servings": 4,
         "ingredients": [
             {
-                "ingredient": "Carottes",
+                "ingredient": "Carotte",
                 "quantity": 2
             },
             {
-                "ingredient": "Pommes de terre",
+                "ingredient": "Pomme de terre",
                 "quantity": 2
             },
             {
@@ -1194,11 +1194,11 @@ export const recipesList: Array<Recipe> = [
         "servings": 2,
         "ingredients": [
             {
-                "ingredient": "Carottes",
+                "ingredient": "Carotte",
                 "quantity": 6
             },
             {
-                "ingredient": "Pommes de terre",
+                "ingredient": "Pomme de terre",
                 "quantity": 1
             },
             {
@@ -1322,7 +1322,7 @@ export const recipesList: Array<Recipe> = [
                 "unit": "cl"
             },
             {
-                "ingredient": "Oeufs",
+                "ingredient": "Oeuf",
                 "quantity": 3
             },
             {
@@ -1342,7 +1342,7 @@ export const recipesList: Array<Recipe> = [
         "servings": 40,
         "ingredients": [
             {
-                "ingredient": "Pommes",
+                "ingredient": "Pomme",
                 "quantity": 2
             },
             {
@@ -1402,7 +1402,7 @@ export const recipesList: Array<Recipe> = [
         "servings": 4,
         "ingredients": [
             {
-                "ingredient": "Oeufs",
+                "ingredient": "Oeuf",
                 "quantity": 3
             },
             {
@@ -1432,7 +1432,7 @@ export const recipesList: Array<Recipe> = [
                 "unit": "grammes"
             },
             {
-                "ingredient": "Oeufs",
+                "ingredient": "Oeuf",
                 "quantity": 3
             },
             {
@@ -1471,7 +1471,7 @@ export const recipesList: Array<Recipe> = [
                 "unit": "grammes"
             },
             {
-                "ingredient": "Oeufs",
+                "ingredient": "Oeuf",
                 "quantity": 3
             },
             {
@@ -1530,7 +1530,7 @@ export const recipesList: Array<Recipe> = [
                 "unit": "cl"
             },
             {
-                "ingredient": "Oeufs",
+                "ingredient": "Oeuf",
                 "quantity": 2
             },
             {
@@ -1570,7 +1570,7 @@ export const recipesList: Array<Recipe> = [
                 "unit": "sachets"
             },
             {
-                "ingredient": "Oeufs",
+                "ingredient": "Oeuf",
                 "quantity": 4
             },
             {
@@ -1661,11 +1661,11 @@ export const recipesList: Array<Recipe> = [
         "servings": 4,
         "ingredients": [
             {
-                "ingredient": "Bananes",
+                "ingredient": "Banane",
                 "quantity": 2
             },
             {
-                "ingredient": "Kiwis",
+                "ingredient": "Kiwi",
                 "quantity": 3
             },
             {
@@ -1699,7 +1699,7 @@ export const recipesList: Array<Recipe> = [
                 "unit":"grammes"
             },
             {
-                "ingredient": "Oeufs",
+                "ingredient": "Oeuf",
                 "quantity": 6
             },
             {
