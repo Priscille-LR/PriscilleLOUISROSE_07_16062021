@@ -16,29 +16,43 @@ export class DropdownsHandler {
     let item: string = `${type}`;
     let tagItem: string = `${type}-tag rounded`;
     this.recipesBuilder = recipesBuilder;
-    this.openDropdown(dropdown, list, input);
+    this.openDropdown(dropdown, list, input, close);
     this.closeDropdown(close, list);
     this.onUserInput(input, item);
     this.displayTag(item, tagItem);
   }
 
-  openDropdown(dropdown: string, list: string, input: string) {
+  openDropdown(dropdown: string, list: string, input: string, close: string) {
     const dropdownButton = document.querySelector(dropdown);
     const dropdownList = document.querySelector(list) as HTMLElement;
     const dropdownInput = document.getElementById(input);
+    const backdrop = document.getElementById('backdrop');
 
     dropdownButton.addEventListener('click', () => {
-      dropdownList.style.display = 'block';
+      dropdownList.classList.add('expanded');
+      backdrop.classList.add('expanded');
       dropdownInput.focus();
     });
+
+  
   }
 
   closeDropdown(close: string, list: string) {
     const toggleButton = document.querySelector(close);
     const dropdownList = document.querySelector(list) as HTMLElement;
+    const backdrop = document.getElementById('backdrop');
 
     toggleButton.addEventListener('click', () => {
-      dropdownList.style.display = 'none';
+      dropdownList.classList.remove('expanded');
+    });
+
+    this.closeDropdownOnBackdropClick(backdrop, dropdownList);
+  }
+
+  private closeDropdownOnBackdropClick(backdrop: HTMLElement, dropdownList: HTMLElement) {
+    backdrop.addEventListener('click', (e) => {
+      dropdownList.classList.remove('expanded');
+      backdrop.classList.remove('expanded');
     });
   }
 
