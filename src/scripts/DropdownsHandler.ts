@@ -26,8 +26,8 @@ export class DropdownsHandler {
       this.openDropdown(type, list, input);
       this.closeDropdown(type, list);
       this.userInputListener(type, input);
-      this.displayTag(type);
     });
+    this.displayTag();
   }
 
   openDropdown(type: string, list: string, input: string) {
@@ -91,23 +91,22 @@ export class DropdownsHandler {
     });
   }
 
-  displayTag(type: string) {
-    const dropdownItem = document.getElementsByClassName(type);
-    const dropdownArray = Array.from(dropdownItem);
-
-    
-    dropdownArray.forEach((element) => {
-      element.addEventListener('click', () => {
-        this.createTag(element, type);
-        this.selectedTags.push(element.innerHTML);
-        this.updateSelectedRecipes();
-        this.recipesBuilder.update(this.selectedRecipes);
-        this.dropdownsBuilder.update(this.selectedRecipes, this.selectedTags);
-        this.typeArray.forEach(type => {
-          this.displayTag(type);
+  displayTag() {
+    this.typeArray.forEach(type => {
+      const dropdownItem = document.getElementsByClassName(type);
+      const dropdownArray = Array.from(dropdownItem);
+      
+      dropdownArray.forEach((element) => {
+        element.addEventListener('click', () => {
+          this.createTag(element, type);
+          this.selectedTags.push(element.innerHTML);
+          this.updateSelectedRecipes();
+          this.recipesBuilder.update(this.selectedRecipes);
+          this.dropdownsBuilder.update(this.selectedRecipes, this.selectedTags);
+          this.displayTag();
         });
       });
-    });
+    })
   }
 
   private updateSelectedRecipes() {
@@ -163,12 +162,12 @@ export class DropdownsHandler {
     tag.className = `tag ${tagItem}`;
     tag.innerHTML = `${element.innerHTML} <i class="close-tag far fa-times-circle"></i>`;
     
-    this.handleTag(tag, element, type);
+    this.handleTag(tag, element);
     
     tags.appendChild(tag);
   }
   
-  private handleTag(tag: HTMLSpanElement, element: Element, type: string) {
+  private handleTag(tag: HTMLSpanElement, element: Element) {
     const closeTag = tag.querySelector('.close-tag');
     closeTag.addEventListener('click', () => {
       tag.remove();
@@ -181,9 +180,7 @@ export class DropdownsHandler {
       const recipes = this.selectedRecipes.length == 0 ? recipesList : this.selectedRecipes;
       this.recipesBuilder.update(recipes);
       this.dropdownsBuilder.update(recipes, this.selectedTags);
-      this.typeArray.forEach(type => {
-        this.displayTag(type);
-      });
+      this.displayTag();
     });
   }
 }
