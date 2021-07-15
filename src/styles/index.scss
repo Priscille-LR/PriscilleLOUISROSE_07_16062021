@@ -1,3 +1,4 @@
+@import 'custom';
 
 .page_header {
   display: flex;
@@ -5,21 +6,77 @@
   margin: 2rem;
 }
 
+.search-bar {
+  padding: 1rem;
+  &::placeholder {
+    color: #c7bebe;
+    font-size: 18px;
+  }
+}
+
+.alerts {
+  padding: 1rem 0;
+  .alert {
+    display: none;
+  }
+  .alert.displayed {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
 .btn-group {
+  display: flex;
+  flex-direction: row;
   margin: 1rem 0;
+  @media screen and (max-width : 375px) {
+    flex-direction: column;
+  }
+}
+
+.btn-group > .btn, .btn-group-vertical > .btn {
+  display: flex;
+  flex: unset;
 }
 
 .btn {
-  margin-right: 1rem;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-right: 2%;
+  padding: 1% 0%;
+  width: 15%;
+  @media screen and (max-width : 767px) {
+    width: 33%;
+  }
+  @media screen and (max-width : 375px) {
+    width: 100%;
+    margin: 2% 0%;
+  }
+}
+
+.opened {
+  width: 45%;
+  transition: linear .1s;
 }
 
 .list-wrapper {
   display: none;
-  padding: 1rem;
+  padding: 1% ;
   position: absolute;
-  width: 700px;
+  width: 45%;
   z-index: 1;
+  @media screen and (max-width : 767px) {
+    width: 100%;
+  }
+  .list-wrapper.expanded {
+      display: block;
+      z-index: 3;
+    }
+  
 }
+
 .input-dropdown {
   border: none;
   width: 90%;
@@ -52,6 +109,8 @@
 
 .ingredient-list-wrapper {
   background-color: #3282f7;
+  position: absolute;
+  left: 0%;
   #input-ingredient {
     background-color: #3282f7;
   }
@@ -68,6 +127,11 @@
 
 .appliance-list-wrapper {
   background-color: #68d9a4;
+  position: absolute;
+  left: 16.95%;
+  @media screen and (max-width : 767px) {
+    left: 0%;
+  }
   #input-appliance {
     background-color: #68d9a4;
   }
@@ -84,6 +148,11 @@
 
 .utensil-list-wrapper {
   background-color: #ed6454;
+  position: absolute;
+  left: 33.85%;
+  @media screen and (max-width : 767px) {
+    left: 0%;
+  }
   #input-utensil {
     background-color: #ed6454;
   }
@@ -125,12 +194,13 @@
 
 .expanded {
   display: block;
-  z-index: 2;
+  z-index: 3;
+  transition: linear .1s;
 }
 
 .card {
   margin: 1rem 0;
-  height: 400px;
+  height: 450px;
   .card-header {
     height: 40%;
   }
@@ -166,11 +236,8 @@
   margin: 1rem 0;
   .recipe-ingredient-list {
     width: 55%;
-    // overflow: hidden;
-    // text-overflow: ellipsis;
     .recipe-ingredient {
       font-size: 12px;
-      //white-space: nowrap;
     }
   }
   .card-text {
@@ -198,5 +265,6 @@
 
 #backdrop.expanded {
   display: block;
+  z-index: 2;
   pointer-events: all;
 }

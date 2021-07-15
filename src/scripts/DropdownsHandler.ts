@@ -1,25 +1,26 @@
 import { DropdownsBuilder } from './DropdownsBuilder';
 import { ingredientsMap, appliancesMap, utensilsMap } from './DropdownsBuilder';
-import { recipesList } from './recipesList';
 import { RecipeCardsBuilder } from './RecipesBuilder';
 import { Recipe } from '../models/recipe';
+import { globalRecipesList } from '.';
+import { Utils } from './Utils';
+import { recipesList } from './recipesList';
+import { ISearch } from "./SearchAlgorithms/Search";
+import { Alerts } from '../scripts/Alerts';
 
 export let selectedTags: Array<string> = [];
 
 export class DropdownsHandler {
-  selectedRecipes: Array<Recipe> = [];
-  recipesBuilder: RecipeCardsBuilder;
-  dropdownsBuilder: DropdownsBuilder;
   selectedTagsMap = new Map();
   typeArray: Array<string> = ['ingredient', 'appliance', 'utensil'];
   
   constructor(
-    recipesBuilder: RecipeCardsBuilder,
-    dropdownsBuilder: DropdownsBuilder
+    public recipesBuilder: RecipeCardsBuilder,
+    public dropdownsBuilder: DropdownsBuilder,
+    public alerts: Alerts,
+    public search?: ISearch, 
   ) {
-
-    this.recipesBuilder = recipesBuilder;
-    this.dropdownsBuilder = dropdownsBuilder;
+  
 
     this.typeArray.forEach(type => {
       let list: string = `.${type}-list-wrapper`;
@@ -28,7 +29,7 @@ export class DropdownsHandler {
       this.closeDropdown(type, list);
       this.userInputListener(type, input);
     });
-    this.displayTag();
+    this.refreshTags();
   }
 
   openDropdown(type: string, list: string, input: string) {
@@ -39,6 +40,7 @@ export class DropdownsHandler {
     const backdrop = document.getElementById('backdrop');
 
     dropdownButton.addEventListener('click', () => {
+      dropdownButton.classList.add('opened');
       dropdownList.classList.add('expanded');
       backdrop.classList.add('expanded');
       dropdownInput.focus();
@@ -47,22 +49,30 @@ export class DropdownsHandler {
 
   closeDropdown(type: string, list: string) {
     let close: string = `.close-dropdown-${type}`;
+    let dropdown: string = `.button-${type}`;
+    const dropdownButton = document.querySelector(dropdown);
     const toggleButton = document.querySelector(close);
     const dropdownList = document.querySelector(list) as HTMLElement;
     const backdrop = document.getElementById('backdrop');
 
     toggleButton.addEventListener('click', () => {
+      dropdownButton.classList.remove('opened');
       dropdownList.classList.remove('expanded');
     });
 
-    this.closeDropdownOnBackdropClick(backdrop, dropdownList);
+    this.closeDropdownOnBackdropClick(type, backdrop, dropdownList);
   }
 
   private closeDropdownOnBackdropClick(
+    type: string,
     backdrop: HTMLElement,
     dropdownList: HTMLElement
   ) {
+    let dropdown: string = `.button-${type}`;
+    const dropdownButton = document.querySelector(dropdown);
+    
     backdrop.addEventListener('click', () => {
+      dropdownButton.classList.remove('opened');
       dropdownList.classList.remove('expanded');
       backdrop.classList.remove('expanded');
     });
@@ -92,26 +102,28 @@ export class DropdownsHandler {
     });
   }
 
-  displayTag() {
+  refreshTags() {
     this.typeArray.forEach(type => {
       const dropdownItem = document.getElementsByClassName(type);
       const dropdownArray = Array.from(dropdownItem);
       
       dropdownArray.forEach((element) => {
         element.addEventListener('click', () => {
+          
           this.createTag(element, type);
           selectedTags.push(element.innerHTML);
+         
           this.updateSelectedRecipes();
-          this.recipesBuilder.update(this.selectedRecipes);
-          this.dropdownsBuilder.update(this.selectedRecipes, selectedTags);
-          this.displayTag();
+          this.recipesBuilder.update(globalRecipesList);
+          this.dropdownsBuilder.update(globalRecipesList, selectedTags);
+          this.refreshTags();
+          this.alerts.handleAlert();
         });
       });
     })
   }
 
-  private updateSelectedRecipes() {
-    this.selectedRecipes = [];
+  updateSelectedRecipes() {
 
     let selectedRecipesIds = selectedTags.map((tag) => {
       let storedIds = [];
@@ -135,9 +147,8 @@ export class DropdownsHandler {
       this.selectedTagsMap.set(key, value);
     }
 
-    if (selectedRecipesIds.length == 0) {
-      this.selectedRecipes = recipesList;
-    } else {
+    if (selectedRecipesIds.length != 0) {
+
       selectedRecipesIds = selectedRecipesIds
         .reduce((a: Array<number>, b: Array<number>) =>
           a.filter((c: number) => b.includes(c)))
@@ -145,14 +156,16 @@ export class DropdownsHandler {
 
       let selectedRecipesList = selectedRecipesIds.flat().map((id: number) => {
         let storedRecipes = [];
-        recipesList.forEach((recipe) => {
+        globalRecipesList.forEach((recipe) => {
           if (id === recipe.id) {
             storedRecipes.push(recipe);
           }
         });
         return storedRecipes;
       });
-      this.selectedRecipes = Array.from(new Set(selectedRecipesList.flat()));
+
+      Utils.clearArray(globalRecipesList);
+      globalRecipesList.push(...Array.from(new Set(selectedRecipesList.flat())));
     }
   }
 
@@ -169,19 +182,35 @@ export class DropdownsHandler {
   }
   
   private handleTag(tag: HTMLSpanElement, element: Element) {
+ 
     const closeTag = tag.querySelector('.close-tag');
+ 
     closeTag.addEventListener('click', () => {
+      console.log(recipesList)
       tag.remove();
-
+      
       selectedTags = selectedTags.filter((tag) => {
         return tag != element.innerHTML;
       }); //return if selected tag is different from deleted tag
+    
+
+      Utils.clearArray(globalRecipesList)
+      globalRecipesList.push(...recipesList)
+    
+      const userInput = document.querySelector('.search-bar') as HTMLInputElement
+
+      if (userInput.value.length >= 3) {
+        let filteredRecipes = this.search?.execute(userInput.value, globalRecipesList) ?? []; //if null (bc optional param) filteredRecipes empty
+        Utils.clearArray(globalRecipesList)
+        globalRecipesList.push(...filteredRecipes);
+      }
 
       this.updateSelectedRecipes();
-      const recipes = this.selectedRecipes.length == 0 ? recipesList : this.selectedRecipes;
-      this.recipesBuilder.update(recipes);
-      this.dropdownsBuilder.update(recipes, selectedTags);
-      this.displayTag();
+      
+      this.recipesBuilder.update(globalRecipesList);
+      this.dropdownsBuilder.update(globalRecipesList, selectedTags);
+      this.refreshTags();
+      this.alerts.handleAlert();
     });
   }
 }

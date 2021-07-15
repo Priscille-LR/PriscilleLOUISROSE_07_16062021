@@ -10,4 +10,11 @@ export class Utils {
       }
     }
   }
+
+  static clearArray<T>(array: T[]) {
+    while (array.length) {
+      array.pop();
+    }
+  }
 }
+

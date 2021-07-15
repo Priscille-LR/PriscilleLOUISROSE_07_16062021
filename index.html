@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Bootstrap CSS -->
-    <link
+    <!-- <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
       crossorigin="anonymous"
-    />
+    /> -->
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
@@ -62,6 +62,17 @@
       <div class="container">
         <div class="row">
           <div class="col-12">
+            <div class="alerts">
+              <div class="alert" role="alert">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
             <div class="tags"></div>
           </div>
         </div>
@@ -69,11 +80,11 @@
 
       <div class="container">
         <div class="row">
-          <div class="col-12 col-lg-6">
+          <div class="col-12 btn-group-wrapper">
             <div class="btn-group">
               <button
                 type="button"
-                class="button-ingredient btn btn-primary rounded"
+                class="button-ingredient btn btn-primary rounded text-white"
               >
                 Ingrédients
                 <i class="dropdown-ingredient-toggle fas fa-chevron-down"></i>
@@ -94,7 +105,7 @@
 
               <button
                 type="button"
-                class="button-appliance btn btn-success rounded"
+                class="button-appliance btn btn-success rounded text-white"
               >
               Appareils
                 <i class="dropdown-appliance-toggle fas fa-chevron-down"></i>
@@ -115,7 +126,7 @@
 
               <button
               type="button"
-              class="button-utensil btn btn-danger rounded"
+              class="button-utensil btn btn-danger rounded text-white"
             >
             Ustensiles
               <i class="dropdown-utensil-toggle fas fa-chevron-down"></i>
