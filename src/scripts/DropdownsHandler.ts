@@ -4,8 +4,9 @@ import { recipesList } from './recipesList';
 import { RecipeCardsBuilder } from './RecipesBuilder';
 import { Recipe } from '../models/recipe';
 
+export let selectedTags: Array<string> = [];
+
 export class DropdownsHandler {
-  selectedTags: Array<string> = [];
   selectedRecipes: Array<Recipe> = [];
   recipesBuilder: RecipeCardsBuilder;
   dropdownsBuilder: DropdownsBuilder;
@@ -99,10 +100,10 @@ export class DropdownsHandler {
       dropdownArray.forEach((element) => {
         element.addEventListener('click', () => {
           this.createTag(element, type);
-          this.selectedTags.push(element.innerHTML);
+          selectedTags.push(element.innerHTML);
           this.updateSelectedRecipes();
           this.recipesBuilder.update(this.selectedRecipes);
-          this.dropdownsBuilder.update(this.selectedRecipes, this.selectedTags);
+          this.dropdownsBuilder.update(this.selectedRecipes, selectedTags);
           this.displayTag();
         });
       });
@@ -112,7 +113,7 @@ export class DropdownsHandler {
   private updateSelectedRecipes() {
     this.selectedRecipes = [];
 
-    let selectedRecipesIds = this.selectedTags.map((tag) => {
+    let selectedRecipesIds = selectedTags.map((tag) => {
       let storedIds = [];
       [ingredientsMap,
         appliancesMap,
@@ -128,8 +129,8 @@ export class DropdownsHandler {
     });
 
     //create new map with selected tags, bc of maps update in dropdowns builder updateMap()
-    for (let index = 0; index < this.selectedTags.length; index++) {
-      const key = this.selectedTags[index];
+    for (let index = 0; index < selectedTags.length; index++) {
+      const key = selectedTags[index];
       const value = selectedRecipesIds[index];
       this.selectedTagsMap.set(key, value);
     }
@@ -172,14 +173,14 @@ export class DropdownsHandler {
     closeTag.addEventListener('click', () => {
       tag.remove();
 
-      this.selectedTags = this.selectedTags.filter((tag) => {
+      selectedTags = selectedTags.filter((tag) => {
         return tag != element.innerHTML;
       }); //return if selected tag is different from deleted tag
 
       this.updateSelectedRecipes();
       const recipes = this.selectedRecipes.length == 0 ? recipesList : this.selectedRecipes;
       this.recipesBuilder.update(recipes);
-      this.dropdownsBuilder.update(recipes, this.selectedTags);
+      this.dropdownsBuilder.update(recipes, selectedTags);
       this.displayTag();
     });
   }
