@@ -2,29 +2,36 @@ import { DropdownsBuilder } from './DropdownsBuilder';
 import { ingredientsMap, appliancesMap, utensilsMap } from './DropdownsBuilder';
 import { recipesList } from './recipesList';
 import { RecipeCardsBuilder } from './RecipesBuilder';
-import { has } from 'core-js/core/dict';
 import { Recipe } from '../models/recipe';
 
 export class DropdownsHandler {
-  selectedTags = [];
-  selectedRecipes : Array<Recipe> = [];
+  selectedTags: Array<string> = [];
+  selectedRecipes: Array<Recipe> = [];
   recipesBuilder: RecipeCardsBuilder;
+  dropdownsBuilder: DropdownsBuilder;
+  selectedTagsMap = new Map();
+  typeArray: Array<string> = ['ingredient', 'appliance', 'utensil'];
+  
+  constructor(
+    recipesBuilder: RecipeCardsBuilder,
+    dropdownsBuilder: DropdownsBuilder
+  ) {
 
-  constructor(type: string, recipesBuilder: RecipeCardsBuilder) {
-    let dropdown: string = `.button-${type}`;
-    let list: string = `.${type}-list-wrapper`;
-    let input: string = `input-${type}`;
-    let close: string = `.close-dropdown-${type}`;
-    let item: string = `${type}`;
-    let tagItem: string = `${type}-tag rounded`;
     this.recipesBuilder = recipesBuilder;
-    this.openDropdown(dropdown, list, input, close);
-    this.closeDropdown(close, list);
-    this.onUserInput(input, item);
-    this.displayTag(item, tagItem);
+    this.dropdownsBuilder = dropdownsBuilder;
+
+    this.typeArray.forEach(type => {
+      let list: string = `.${type}-list-wrapper`;
+      let input: string = `input-${type}`;
+      this.openDropdown(type, list, input);
+      this.closeDropdown(type, list);
+      this.userInputListener(type, input);
+      this.displayTag(type);
+    });
   }
 
-  openDropdown(dropdown: string, list: string, input: string, close: string) {
+  openDropdown(type: string, list: string, input: string) {
+    let dropdown: string = `.button-${type}`;
     const dropdownButton = document.querySelector(dropdown);
     const dropdownList = document.querySelector(list) as HTMLElement;
     const dropdownInput = document.getElementById(input);
@@ -37,7 +44,8 @@ export class DropdownsHandler {
     });
   }
 
-  closeDropdown(close: string, list: string) {
+  closeDropdown(type: string, list: string) {
+    let close: string = `.close-dropdown-${type}`;
     const toggleButton = document.querySelector(close);
     const dropdownList = document.querySelector(list) as HTMLElement;
     const backdrop = document.getElementById('backdrop');
@@ -53,22 +61,22 @@ export class DropdownsHandler {
     backdrop: HTMLElement,
     dropdownList: HTMLElement
   ) {
-    backdrop.addEventListener('click', (e) => {
+    backdrop.addEventListener('click', () => {
       dropdownList.classList.remove('expanded');
       backdrop.classList.remove('expanded');
     });
   }
 
-  onUserInput(input: string, item: string) {
+  userInputListener(type: string, input: string) {
     const dropdownInput = document.getElementById(input);
     dropdownInput.addEventListener('input', (e) =>
-      this.updateDropdown(e, item)
+      this.updateDropdownOnInput(e, type)
     );
   }
 
-  updateDropdown(e: Event, item: string) {
+  updateDropdownOnInput(e: Event, type: string) {
     const userInput = (e.target as HTMLTextAreaElement).value.toLowerCase();
-    const dropdownItem = document.getElementsByClassName(item);
+    const dropdownItem = document.getElementsByClassName(type);
     const dropdownArray = Array.from(dropdownItem) as Array<HTMLElement>;
 
     dropdownArray.forEach((dropdownItem) => {
@@ -83,46 +91,35 @@ export class DropdownsHandler {
     });
   }
 
-  displayTag(item: string, tagItem: string) {
-    const dropdownItem = document.getElementsByClassName(item);
+  displayTag(type: string) {
+    const dropdownItem = document.getElementsByClassName(type);
     const dropdownArray = Array.from(dropdownItem);
 
+    
     dropdownArray.forEach((element) => {
       element.addEventListener('click', () => {
-        this.createTag(element, tagItem);
+        this.createTag(element, type);
         this.selectedTags.push(element.innerHTML);
-        element.classList.add('selected');
         this.updateSelectedRecipes();
         this.recipesBuilder.update(this.selectedRecipes);
+        this.dropdownsBuilder.update(this.selectedRecipes, this.selectedTags);
+        this.typeArray.forEach(type => {
+          this.displayTag(type);
+        });
       });
     });
   }
 
-  // private updateSelectedRecipes() {
-  //   this.selectedRecipes = [];
-  //   [ingredientsMap, appliancesMap, utensilsMap].forEach((map) => {
-  //     this.selectedTags.forEach((tag) => {
-  //       let ids: Number[] | undefined = map.get(tag); //can return undef
-  //       recipesList.forEach((recipe) => {
-  //         ids?.forEach((id) => {
-  //           if (recipe.id === id) {
-  //             this.selectedRecipes.push(recipe);
-  //           }
-  //         });
-  //       });
-  //     });
-  //   });
-  //   this.selectedRecipes = Array.from(new Set(this.selectedRecipes));
-  // }
-
   private updateSelectedRecipes() {
     this.selectedRecipes = [];
-    
-    console.log("tableau des tags selectionnés")
-    console.log(this.selectedTags)
+
     let selectedRecipesIds = this.selectedTags.map((tag) => {
       let storedIds = [];
-      [ingredientsMap, appliancesMap, utensilsMap].forEach((map) => {
+      [ingredientsMap,
+        appliancesMap,
+        utensilsMap,
+        this.selectedTagsMap,
+      ].forEach((map) => {
         let ids: Number[] | undefined = map.get(tag); //can return undef
         if (map.has(tag)) {
           storedIds.push(ids);
@@ -130,58 +127,63 @@ export class DropdownsHandler {
       });
       return storedIds.flat();
     });
-    console.log("tableau des tags selectionnés après le map")
-    console.log(selectedRecipesIds)
 
+    //create new map with selected tags, bc of maps update in dropdowns builder updateMap()
+    for (let index = 0; index < this.selectedTags.length; index++) {
+      const key = this.selectedTags[index];
+      const value = selectedRecipesIds[index];
+      this.selectedTagsMap.set(key, value);
+    }
 
-    selectedRecipesIds =  selectedRecipesIds.reduce((a: Array<number>, b:Array<number>) => {
-      console.log(a)
-      console.log(b)
-      return a.filter((c:number) => {
-        console.log("comparaison c = " + c + " included ? " + b.includes(c));
-        return b.includes(c)
-      })
-    }).flat()
-    console.log("tableau des tags selectionnés après le reduce")
-    console.log(selectedRecipesIds)
-    
-    let selectedRecipesList = selectedRecipesIds.flat().map((id: number) => {
-      let storedRecipes = [];
-      recipesList.forEach((recipe) => {
-        if (id === recipe.id) {
-          storedRecipes.push(recipe);
-        }
+    if (selectedRecipesIds.length == 0) {
+      this.selectedRecipes = recipesList;
+    } else {
+      selectedRecipesIds = selectedRecipesIds
+        .reduce((a: Array<number>, b: Array<number>) =>
+          a.filter((c: number) => b.includes(c)))
+        .flat();
+
+      let selectedRecipesList = selectedRecipesIds.flat().map((id: number) => {
+        let storedRecipes = [];
+        recipesList.forEach((recipe) => {
+          if (id === recipe.id) {
+            storedRecipes.push(recipe);
+          }
+        });
+        return storedRecipes;
       });
-      console.log(storedRecipes);
-      console.log(selectedRecipesList);
-      return storedRecipes;
-    });
-    this.selectedRecipes = Array.from(new Set(selectedRecipesList.flat()));
-    console.log(this.selectedRecipes);
+      this.selectedRecipes = Array.from(new Set(selectedRecipesList.flat()));
+    }
   }
 
-  private createTag(element: Element, tagItem: string) {
+  private createTag(element: Element, type: string) {
     const tags = document.querySelector('.tags');
     const tag = document.createElement('span');
+    let tagItem: string = `${type}-tag rounded`;
     tag.className = `tag ${tagItem}`;
     tag.innerHTML = `${element.innerHTML} <i class="close-tag far fa-times-circle"></i>`;
+    
+    this.handleTag(tag, element, type);
+    
+    tags.appendChild(tag);
+  }
+  
+  private handleTag(tag: HTMLSpanElement, element: Element, type: string) {
     const closeTag = tag.querySelector('.close-tag');
-
     closeTag.addEventListener('click', () => {
       tag.remove();
-      element.classList.remove('selected');
 
       this.selectedTags = this.selectedTags.filter((tag) => {
         return tag != element.innerHTML;
-      });
+      }); //return if selected tag is different from deleted tag
 
       this.updateSelectedRecipes();
-
-      this.recipesBuilder.update(
-        this.selectedRecipes.length == 0 ? recipesList : this.selectedRecipes
-      );
+      const recipes = this.selectedRecipes.length == 0 ? recipesList : this.selectedRecipes;
+      this.recipesBuilder.update(recipes);
+      this.dropdownsBuilder.update(recipes, this.selectedTags);
+      this.typeArray.forEach(type => {
+        this.displayTag(type);
+      });
     });
-
-    tags.appendChild(tag);
   }
 }

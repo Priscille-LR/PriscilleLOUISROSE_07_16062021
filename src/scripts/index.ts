@@ -5,10 +5,8 @@ import { DropdownsHandler } from './DropdownsHandler';
 import {SearchBarAlgorithm} from './SearchAlgorithms/SearchBarAlgorithm'
 
 const recipeBuilder = new RecipeCardsBuilder(recipesList);
-const dropdownsBuilder = new DropdownsBuilder(recipesList);
-const dropdownsHandlerIngredients = new DropdownsHandler('ingredient', recipeBuilder);
-const dropdownsHandlerAppliances = new DropdownsHandler('appliance', recipeBuilder);
-const dropdownsHandlerUtensils = new DropdownsHandler('utensil', recipeBuilder);
+const dropdownsBuilder = new DropdownsBuilder(recipesList, []);
+const dropdownsHandler = new DropdownsHandler(recipeBuilder, dropdownsBuilder);
 const searchBarAlgorithm : SearchBarAlgorithm = null;
 
 const searchBarInput = document.querySelector('.search-bar');
