@@ -31,11 +31,12 @@ export class Algo1 implements SearchBarAlgorithm {
       Utils.clearArray(globalRecipesList);
       globalRecipesList.push(...filteredRecipes); //push items of filtered recipes in global recipe list w/ ...
     }
-    this.dropdownsHandler.updateSelectedRecipes();
-
-    this.recipeBuilder.update(globalRecipesList);
+    ;
     this.dropdownsBuilder.update(globalRecipesList, selectedTags);
-    this.dropdownsHandler.refreshTags();
+    this.dropdownsHandler.updateSelectedRecipes();
+    this.dropdownsHandler.refreshTags()
+   
+    this.recipeBuilder.update(globalRecipesList);
     this.alerts.handleAlert();
   }
 }
