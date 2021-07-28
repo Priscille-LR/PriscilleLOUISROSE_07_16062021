@@ -34,16 +34,17 @@ export class Algo2 implements SearchBarAlgorithm {
     Utils.clearArray(globalRecipesList);
     globalRecipesList.push(...recipesList);
 
+   
     if (userInput.length >= 3) {
     const filteredRecipes = this.search.execute(userInput, globalRecipesList);
     Utils.clearArray(globalRecipesList);
     globalRecipesList.push(...filteredRecipes);
     }
-
-    this.dropdownsHandler.updateSelectedRecipes();
-    this.recipeBuilder.update(globalRecipesList);
+    
     this.dropdownsBuilder.update(globalRecipesList, selectedTags);
+    this.dropdownsHandler.updateSelectedRecipes();
     this.dropdownsHandler.refreshTags();
+    this.recipeBuilder.update(globalRecipesList);
     this.alerts.handleAlert();
   }
 }
