@@ -3,10 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "parcel": "parcel index.html",
     "start": "parcel index.html",
     "dev": "parcel index.html",
     "prebuild": "npx rimraf build",
-    "build": "parcel build --public-url ./ index.html --experimental-scope-hoisting --out-dir build"
+    "build": "parcel build index.html --no-minify  --experimental-scope-hoisting && cp _redirects dist/_redirects",
+    "deploy": "gh-pages -d dist",
+    "lint": "eslint ./scripts/**/*.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
     "@types/bootstrap": "^5.0.16",
