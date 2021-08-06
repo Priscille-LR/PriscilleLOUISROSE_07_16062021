@@ -1,7 +1,6 @@
 import { recipesList } from '../recipesList';
 import { Recipe } from '../../models/recipe';
 import { RecipeCardsBuilder } from '../RecipesBuilder';
-import { Algo2DataGenerator } from './Algo2DataGenerator';
 import { DropdownsBuilder } from '../DropdownsBuilder';
 import { DropdownsHandler, selectedTags } from '../DropdownsHandler';
 import { SearchBarAlgorithm } from './SearchBarAlgorithm';
@@ -19,28 +18,25 @@ export class Algo2 implements SearchBarAlgorithm {
     public recipeBuilder: RecipeCardsBuilder,
     public dropdownsBuilder: DropdownsBuilder,
     public dropdownsHandler: DropdownsHandler,
-    public search : ISearch,
+    public search: ISearch,
     public alerts: Alerts
-  ) {
-
-  }
+  ) {}
 
   searchRecipes(e: Event) {
     const userInput = (e.target as HTMLTextAreaElement).value
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '');
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '');
 
     Utils.clearArray(globalRecipesList);
     globalRecipesList.push(...recipesList);
 
-   
     if (userInput.length >= 3) {
-    const filteredRecipes = this.search.execute(userInput, globalRecipesList);
-    Utils.clearArray(globalRecipesList);
-    globalRecipesList.push(...filteredRecipes);
+      const filteredRecipes = this.search.execute(userInput, globalRecipesList);
+      Utils.clearArray(globalRecipesList);
+      globalRecipesList.push(...filteredRecipes);
     }
-    
+
     this.dropdownsBuilder.update(globalRecipesList, selectedTags);
     this.dropdownsHandler.updateSelectedRecipes();
     this.dropdownsHandler.refreshTags();

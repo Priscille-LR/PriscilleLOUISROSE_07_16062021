@@ -29,7 +29,7 @@ export class Algo2DataGenerator {
       if (keywordsOfRecipeData.includes(element)) { 
         let index = keywordsOfRecipeData.indexOf(element); // if it is, get index of element
         let recipes = this.recipesData[index].recipes; // use that index to get the recipes associated with the kw
-        recipes.push(recipe); //then push the recipe in recipes 
+        recipes.push(recipe); //then push the recipe in recipes;
       } else {
         this.recipesData.push(new RecipeDataImplement(element, [recipe])); //if it is not contained, push the formatted kw AND array of recipe in recipesData
       }

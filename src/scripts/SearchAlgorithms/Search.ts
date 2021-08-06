@@ -14,7 +14,7 @@ export class Search implements ISearch {
   execute(query: string, recipesList: Recipe[]): Recipe[] {
     //selectedRecipesArray = array of array of recipes
     let formattedQuery = query.split(' ');
-    let filteredRecipes: Recipe[] = [];
+    //let filteredRecipes: Recipe[] = [];
 
     let selectedRecipes = formattedQuery.map((inputKeyword) => {
       return this.recipesData
@@ -33,11 +33,11 @@ export class Search implements ISearch {
 
     if (selectedRecipes.length != 0) {
       selectedRecipes = [
-        selectedRecipes.reduce((a: Array<Recipe>, b: Array<Recipe>) =>
+        selectedRecipes.reduce((a: Array<Recipe>, b: Array<Recipe>) => //'and' search : get array intersection (check if c - el in a - is included in b)
           a.filter((c: Recipe) => b.includes(c))
         ),
       ];
     }
-    return (filteredRecipes = Array.from(new Set(selectedRecipes.flat())));
+    return Array.from(new Set(selectedRecipes.flat()));
   }
 }
